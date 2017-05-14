@@ -16,15 +16,19 @@ public class InMemoryBlog implements Blog {
 
 	@Override
 	public Article[] getArticles() {
-		if (articles != null) {
-			return articles;
+		if (this.articles != null) {
+			return this.articles;
 		}
 		return null;
 	}
 
 	@Override
 	public Article getArticle(Integer id) {
-		// TODO
+		for (int i = 0; i < articles.length; i++) {
+			if (this.articles[i].getId() == id) {
+				return this.articles[i];
+			}
+		}
 		return null;
 	}
 
@@ -34,10 +38,10 @@ public class InMemoryBlog implements Blog {
 		Article[] newArticles = new Article[this.articles.length];
 		for (int i = 0; i < this.articles.length; i++) {
 			if (this.articles[i].getId() == id) {
-				// TODO newArticles[i] = ???;
-				// TODO ???++;
+				newArticles[i] = updateArticle;
+				updateCount++;
 			} else {
-				// TODO newArticles[i] = ???;
+				newArticles[i] = articles[i];
 			}
 		}
 		this.articles = newArticles;
@@ -46,7 +50,13 @@ public class InMemoryBlog implements Blog {
 
 	@Override
 	public Integer deleteArticle(Integer id) {
-		// TODO
+		Article[] newArticles = new Article[this.articles.length - 1];
+		for (int i = 0; i < this.articles.length; i++) {
+			if (this.articles[i].getId() != id) {
+				newArticles[i] = articles[i];
+			}
+		}
+		this.articles = newArticles;
 		return -1;
 	}
 
